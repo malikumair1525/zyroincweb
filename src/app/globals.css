@@ -1,0 +1,350 @@
+@import "tailwindcss";
+
+@theme {
+  /* ===== ZYRO INC — Gold + Black Luxury Palette ===== */
+
+  /* Gold */
+  --color-gold-50:  #fdf8e7;
+  --color-gold-100: #faf0c4;
+  --color-gold-200: #f5d87a;
+  --color-gold-300: #edc957;
+  --color-gold-400: #e0b837;
+  --color-gold-500: #d4af37;
+  --color-gold-600: #b8902b;
+  --color-gold-700: #a17f1e;
+  --color-gold-800: #7d6117;
+  --color-gold-900: #5a4611;
+
+  /* Ink */
+  --color-ink-50:  #f5f5f5;
+  --color-ink-100: #e5e5e5;
+  --color-ink-200: #d4d4d4;
+  --color-ink-300: #a3a3a3;
+  --color-ink-400: #737373;
+  --color-ink-500: #525252;
+  --color-ink-600: #404040;
+  --color-ink-700: #262626;
+  --color-ink-800: #171717;
+  --color-ink-900: #0a0a0a;
+  --color-ink-950: #000000;
+
+  /* Market */
+  --color-bull-400: #4ade80;
+  --color-bull-500: #22c55e;
+  --color-bear-400: #f87171;
+  --color-bear-500: #ef4444;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ============================================
+   BASE
+   ============================================ */
+html {
+  scroll-behavior: smooth;
+  /* Offset for sticky navbar when clicking anchor links (#section) */
+  scroll-padding-top: 5rem;
+}
+
+html, body {
+  background-color: var(--color-ink-950);
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Heading defaults — tighter letter spacing for display feel */
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.015em;
+}
+
+/* Text selection — on-brand gold */
+::selection {
+  background-color: rgba(212, 175, 55, 0.35);
+  color: #ffffff;
+}
+
+/* Fix autofill background in dark mode inputs */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #0a0a0a inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Remove default browser outline — we define our own focus-visible */
+*:focus {
+  outline: none;
+}
+
+/* Better focus-visible ring for keyboard users */
+*:focus-visible {
+  outline: 2px solid rgba(212, 175, 55, 0.6);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Buttons and links get a cleaner focus ring */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid rgba(212, 175, 55, 0.7);
+  outline-offset: 3px;
+}
+
+/* Respect reduced-motion user preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+/* Grid background */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(212, 175, 55, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(212, 175, 55, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Gold glow */
+.glow-gold {
+  box-shadow:
+    0 0 0 1px rgba(212, 175, 55, 0.2),
+    0 20px 60px -20px rgba(212, 175, 55, 0.35);
+}
+
+/* Gold gradient text */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #f5d87a 0%, #d4af37 50%, #a17f1e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* Shimmering gold gradient — used on hero headline for premium feel */
+.text-gold-gradient-shimmer {
+  background: linear-gradient(
+    110deg,
+    #a17f1e 0%,
+    #d4af37 20%,
+    #f5d87a 40%,
+    #fff4b8 50%,
+    #f5d87a 60%,
+    #d4af37 80%,
+    #a17f1e 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmerMove 6s ease-in-out infinite;
+}
+
+@keyframes shimmerMove {
+  0% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+  100% {
+    background-position: 0% center;
+  }
+}
+
+/* Premium metallic gold button */
+.btn-gold {
+  background: linear-gradient(135deg, #e0b837 0%, #d4af37 50%, #b8902b 100%);
+  color: #0a0a0a;
+  transition: all 0.25s ease;
+}
+.btn-gold:hover:not(:disabled) {
+  background: linear-gradient(135deg, #f5d87a 0%, #e0b837 50%, #d4af37 100%);
+  box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.5);
+  transform: translateY(-1px);
+}
+.btn-gold:active:not(:disabled) {
+  transform: translateY(0);
+}
+/* ============================================
+   MICRO-INTERACTIONS
+   ============================================ */
+
+/* Pulsing gold glow — use on primary CTAs to magnetize attention */
+.pulse-glow {
+  position: relative;
+}
+.pulse-glow::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #e0b837, #d4af37, #b8902b);
+  opacity: 0;
+  z-index: -1;
+  filter: blur(12px);
+  transition: opacity 0.3s ease;
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+.pulse-glow:hover::before {
+  opacity: 0.85;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(1.04);
+  }
+}
+
+/* Animated link underline — draws from left on hover */
+.link-underline {
+  position: relative;
+  display: inline-block;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.3s ease;
+}
+.link-underline:hover::after {
+  transform: scaleX(1);
+}
+
+/* Card hover lift — use on cards that should respond to hover */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px -15px rgba(212, 175, 55, 0.2);
+}
+
+/* Icon slide-right on parent hover */
+.group:hover .icon-slide {
+  transform: translateX(3px);
+}
+.icon-slide {
+  transition: transform 0.25s ease;
+}
+
+/* Icon scale-up on parent hover */
+.group:hover .icon-scale {
+  transform: scale(1.15);
+}
+.icon-scale {
+  transition: transform 0.25s ease;
+}
+
+/* Shimmer overlay on hover — premium card effect */
+.shimmer-hover {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-hover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    100deg,
+    transparent 20%,
+    rgba(212, 175, 55, 0.08) 50%,
+    transparent 80%
+  );
+  transition: left 0.7s ease;
+  pointer-events: none;
+}
+.shimmer-hover:hover::before {
+  left: 100%;
+}
+/* Skeleton shimmer animation */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s linear infinite;
+}
+
+/* Pulse dot — for "live" or "active" indicators */
+.pulse-dot {
+  position: relative;
+}
+.pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: currentColor;
+  opacity: 0.75;
+  animation: pulseDot 1.8s ease-out infinite;
+}
+@keyframes pulseDot {
+  0% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* Disabled states across the site */
+[disabled],
+.is-disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.25);
+  border-radius: 10px;
+  border: 2px solid #0a0a0a;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.45);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-color: rgba(212, 175, 55, 0.25) #0a0a0a;
+  scrollbar-width: thin;
+}
