@@ -4,22 +4,28 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
-  const { name, email, message } = await req.json();
+  const { fullName, email, subject, department, message } = await req.json();
 
-  if (!name || !email || !message) {
-    return NextResponse.json({ error: "All fields are required." }, { status: 400 });
+  if (!fullName || !email || !message) {
+    return NextResponse.json(
+      { error: "All fields are required." },
+      { status: 400 }
+    );
   }
 
   try {
     await resend.emails.send({
-      from: "Contact Form <noreply@zyroinc.com>",
-      to: "you@gmail.com",   // ← replace with YOUR email
+      from: "Contact Form <support@zyroinc.com>",
+      to: "support@zyroinc.com",   // ← your inbox
       replyTo: email,
-      subject: `New message from ${name}`,
+      subject: `[${department}] ${subject}`,
       html: `
-        <p><strong>Name:</strong> ${name}</p>
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${fullName}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Message:</strong> ${message}</p>
+        <p><strong>Department:</strong> ${department}</p>
+        <p><strong>Subject:</strong> ${subject}</p>
+        <p><strong>Message:</strong><br/>${message}</p>
       `,
     });
     return NextResponse.json({ success: true });
